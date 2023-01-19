@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: herbalchem/frontend:1.0
+    container_name: herbalchem_frontend
+    restart: always
+    ports:
+      - "3000:3000"

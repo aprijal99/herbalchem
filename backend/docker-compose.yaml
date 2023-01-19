@@ -15,6 +15,14 @@ services:
         target: "/docker-entrypoint-initdb.d"
     networks:
       - herbalchem_microservices
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
 
   phpmyadmin:
     image: phpmyadmin:latest
@@ -26,6 +34,14 @@ services:
       - "8088:80"
     networks:
       - herbalchem_microservices
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
@@ -38,6 +54,14 @@ services:
       - "2181:2181"
     networks:
       - herbalchem_microservices
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
 
   kafka:
     image: confluentinc/cp-kafka:latest
@@ -59,6 +83,14 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
     networks:
       - herbalchem_microservices
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
 
   config-server:
     build:
@@ -77,6 +109,14 @@ services:
         target: /config-repo
     networks:
       - herbalchem_microservices
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
 
   eureka-server:
     build:
@@ -94,6 +134,14 @@ services:
       - config-server
     networks:
       - herbalchem_microservices
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
 
   gateway:
     build:
@@ -112,6 +160,14 @@ services:
       - eureka-server
     networks:
       - herbalchem_microservices
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
 
   compound-form-service:
     build:
@@ -128,6 +184,14 @@ services:
       - eureka-server
     networks:
       - herbalchem_microservices
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
 
   compound-detail-service:
     build:
@@ -144,6 +208,14 @@ services:
       - eureka-server
     networks:
       - herbalchem_microservices
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
 
   compound-file-service:
     build:
@@ -169,6 +241,14 @@ services:
         target: /structure_3d_sdf
     networks:
       - herbalchem_microservices
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
 
   compound-service:
     build:
@@ -185,6 +265,14 @@ services:
       - eureka-server
     networks:
       - herbalchem_microservices
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
 
   chemical-physical-property-service:
     build:
@@ -201,6 +289,14 @@ services:
       - eureka-server
     networks:
       - herbalchem_microservices
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
 
   name-identifier-service:
     build:
@@ -217,6 +313,14 @@ services:
       - eureka-server
     networks:
       - herbalchem_microservices
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
 
   organism-service:
     build:
@@ -233,6 +337,14 @@ services:
       - eureka-server
     networks:
       - herbalchem_microservices
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
 
   structure-service:
     build:
@@ -249,6 +361,14 @@ services:
       - eureka-server
     networks:
       - herbalchem_microservices
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
 
 networks:
   herbalchem_microservices:
