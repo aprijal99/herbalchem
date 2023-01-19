@@ -1,0 +1,7 @@
+@import 'ChemDoodleWeb.css';
+
+* {
+  box-sizing: border-box !important;
+  font-family: 'Roboto', sans-serif !important;
+  letter-spacing: initial !important;
+}

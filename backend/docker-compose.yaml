@@ -1,0 +1,262 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: herbalchem_mysql
+    restart: always
+    ports:
+      - "3303:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql_docker
+    volumes:
+      - type: bind
+        source: "../db_schema"
+        target: "/docker-entrypoint-initdb.d"
+    networks:
+      - herbalchem_microservices
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: herbalchem_phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mysql
+    ports:
+      - "8088:80"
+    networks:
+      - herbalchem_microservices
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: herbalchem_zookeeper
+    restart: always
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+    networks:
+      - herbalchem_microservices
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: herbalchem_kafka
+    depends_on:
+      - zookeeper
+    restart: always
+    ports:
+      - "29092:29092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: INTERNAL://:9092,EXTERNAL_SAME_HOST://:29092
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,EXTERNAL_SAME_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL_SAME_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    networks:
+      - herbalchem_microservices
+
+  config-server:
+    build:
+      context: config-server
+      dockerfile: Dockerfile
+    image: herbalchem/config-server:1.0
+    container_name: herbalchem_config-server
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker,native
+    ports:
+      - "8888:8888"
+    volumes:
+      - type: bind
+        source: ./config-repo
+        target: /config-repo
+    networks:
+      - herbalchem_microservices
+
+  eureka-server:
+    build:
+      context: eureka-server
+      dockerfile: Dockerfile
+    image: herbalchem/eureka-server:1.0
+    container_name: herbalchem_eureka-server
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - CONFIG_SERVER_HOST=config-server
+    ports:
+      - "8761:8761"
+    depends_on:
+      - config-server
+    networks:
+      - herbalchem_microservices
+
+  gateway:
+    build:
+      context: gateway
+      dockerfile: Dockerfile
+    image: herbalchem/gateway:1.0
+    container_name: herbalchem_gateway
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - CONFIG_SERVER_HOST=config-server
+    ports:
+      - "8443:8443"
+    depends_on:
+      - config-server
+      - eureka-server
+    networks:
+      - herbalchem_microservices
+
+  compound-form-service:
+    build:
+      context: compound-form-service
+      dockerfile: Dockerfile
+    image: herbalchem/compound-form-service:1.0
+    container_name: herblachem_compound-form-service
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - CONFIG_SERVER_HOST=config-server
+    depends_on:
+      - config-server
+      - eureka-server
+    networks:
+      - herbalchem_microservices
+
+  compound-detail-service:
+    build:
+      context: compound-detail-service
+      dockerfile: Dockerfile
+    image: herbalchem/compound-detail-service:1.0
+    container_name: herbalchem_compound-detail-service
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - CONFIG_SERVER_HOST=config-server
+    depends_on:
+      - config-server
+      - eureka-server
+    networks:
+      - herbalchem_microservices
+
+  compound-file-service:
+    build:
+      context: compound-file-service
+      dockerfile: Dockerfile
+    image: herbalchem/compound-file-service:1.0
+    container_name: herbalchem_compound-file-service
+    restart: always
+    ports:
+      - "7008:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - CONFIG_SERVER_HOST=config-server
+    depends_on:
+      - config-server
+      - eureka-server
+    volumes:
+      - type: volume
+        source: herbalchem_2d_structure_sdf
+        target: /structure_2d_sdf
+      - type: volume
+        source: herbalchem_3d_structure_sdf
+        target: /structure_3d_sdf
+    networks:
+      - herbalchem_microservices
+
+  compound-service:
+    build:
+      context: compound-service
+      dockerfile: Dockerfile
+    image: herbalchem/compound-service:1.0
+    container_name: herbalchem_compound-service
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - CONFIG_SERVER_HOST=config-server
+    depends_on:
+      - config-server
+      - eureka-server
+    networks:
+      - herbalchem_microservices
+
+  chemical-physical-property-service:
+    build:
+      context: chemical-physical-property-service
+      dockerfile: Dockerfile
+    image: herbalchem/chemical-physical-property-service:1.0
+    container_name: herbalchem_chemical-physical-property-service
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - CONFIG_SERVER_HOST=config-server
+    depends_on:
+      - config-server
+      - eureka-server
+    networks:
+      - herbalchem_microservices
+
+  name-identifier-service:
+    build:
+      context: name-identifier-service
+      dockerfile: Dockerfile
+    image: herbalchem/name-identifier-service:1.0
+    container_name: herbalchem_name-identifier-service
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - CONFIG_SERVER_HOST=config-server
+    depends_on:
+      - config-server
+      - eureka-server
+    networks:
+      - herbalchem_microservices
+
+  organism-service:
+    build:
+      context: organism-service
+      dockerfile: Dockerfile
+    image: herbalchem/organism-service:1.0
+    container_name: herbalchem_organism-service
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - CONFIG_SERVER_HOST=config-server
+    depends_on:
+      - config-server
+      - eureka-server
+    networks:
+      - herbalchem_microservices
+
+  structure-service:
+    build:
+      context: structure-service
+      dockerfile: Dockerfile
+    image: herbalchem/structure-service:1.0
+    container_name: herbalchem_structure-service
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - CONFIG_SERVER_HOST=config-server
+    depends_on:
+      - config-server
+      - eureka-server
+    networks:
+      - herbalchem_microservices
+
+networks:
+  herbalchem_microservices:
+    name: herbalchem_microservices
+    driver: bridge
+
+volumes:
+  herbalchem_2d_structure_sdf:
+    name: herbalchem_2d_structure_sdf
+  herbalchem_3d_structure_sdf:
+    name: herbalchem_3d_structure_sdf
