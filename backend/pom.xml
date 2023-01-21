@@ -23,6 +23,7 @@
         <module>compound-form-service</module>
         <module>gateway</module>
         <module>compound-file-service</module>
+        <module>authorization-server</module>
     </modules>
 
     <properties>
