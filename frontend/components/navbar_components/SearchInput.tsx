@@ -19,6 +19,7 @@ const SearchInput = ({ marginBottom = '0px' }: SearchInputProps) => {
   return (
     <Input
       aria-label='Input file for searching compounds'
+      animated={false}
       clearable={true}
       contentLeftStyling={false}
       contentLeft={

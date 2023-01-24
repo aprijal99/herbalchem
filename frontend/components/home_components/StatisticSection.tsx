@@ -11,7 +11,7 @@ const StatisticSection = () => {
         },
       }}
     >
-      <Grid.Container gap={2} justify="center" css={{ p: '$0' }}>
+      <Grid.Container gap={2} justify='center' css={{ p: '$0' }}>
         <Grid
           xs={6}
           sm={4}

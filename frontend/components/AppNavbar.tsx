@@ -1,8 +1,20 @@
-import {Link, Navbar} from '@nextui-org/react';
+import {Link, Navbar, Dropdown, Avatar, Text} from '@nextui-org/react';
 import HerbalChemLogo from './navbar_components/HerbalChemLogo';
 import SearchInput from './navbar_components/SearchInput';
+import {useSelector} from 'react-redux';
+import {selectUser} from '../store/slices/user';
+import {UserIcon} from './navbar_components/UserIcon';
+import SignedUserMenu from './navbar_components/SignedUserMenu';
+import UnsignedUserMenu from './navbar_components/UnsignedUserMenu';
 
 const AppNavbar = () => {
+  const user = useSelector(selectUser) as {
+    data: {
+      isAuth: boolean,
+      username: string,
+    }
+  };
+
   const collapseItems = {
     download: '/download',
     api: '/herbal-chem-api',
@@ -21,7 +33,18 @@ const AppNavbar = () => {
         },
       }}
     >
-      <Navbar.Brand>
+      <Navbar.Toggle
+        showIn='xs'
+        css={{
+          fb: '33.33333%',
+        }}
+      />
+
+      <Navbar.Brand
+        css={{
+          fb: '33.33333%',
+        }}
+      >
         <HerbalChemLogo />
       </Navbar.Brand>
 
@@ -31,10 +54,62 @@ const AppNavbar = () => {
         </Navbar.Item>
       </Navbar.Content>
 
-      <Navbar.Content activeColor='success' hideIn='xs' gap='15px'>
-        <Navbar.Link href={collapseItems.download}>Download</Navbar.Link>
-        <Navbar.Link href={collapseItems.api}>API</Navbar.Link>
-        <Navbar.Link isActive href={collapseItems.submit} variant='highlight-solid'>Submit</Navbar.Link>
+      <Navbar.Content
+        activeColor='success'
+        gap='15px'
+        css={{
+          fb: '33.33333%',
+          jc: 'end',
+        }}
+      >
+        <Navbar.Link
+          hideIn='xs'
+          href={collapseItems.download}
+          css={{
+            '&:hover': {
+              color: 'var(--nextui-colors-successLightContrast)',
+            },
+          }}
+        >
+          Download
+        </Navbar.Link>
+        <Navbar.Link
+          hideIn='xs'
+          href={collapseItems.api}
+          css={{
+            '&:hover': {
+              color: 'var(--nextui-colors-successLightContrast)',
+            },
+          }}
+        >
+          API
+        </Navbar.Link>
+        <Navbar.Link
+          hideIn='xs'
+          href={collapseItems.submit}
+          css={{
+            '&:hover': {
+              color: 'var(--nextui-colors-successLightContrast)',
+            },
+          }}
+        >
+          Submit
+        </Navbar.Link>
+
+        <Dropdown placement='bottom-right'>
+          <Navbar.Item>
+            <Dropdown.Trigger>
+              <Avatar
+                bordered
+                as='button'
+                color='success'
+                size='md'
+                icon={<UserIcon />}
+              />
+            </Dropdown.Trigger>
+          </Navbar.Item>
+          {user.data.isAuth ? <SignedUserMenu username={user.data.username} /> : <UnsignedUserMenu />}
+        </Dropdown>
       </Navbar.Content>
 
       <Navbar.Collapse
@@ -75,7 +150,7 @@ const AppNavbar = () => {
           </Navbar.CollapseItem>
         ))}
       </Navbar.Collapse>
-      <Navbar.Toggle showIn='xs' />
+
     </Navbar>
   );
 }

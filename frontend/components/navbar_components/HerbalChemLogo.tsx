@@ -3,6 +3,9 @@ import { Text } from '@nextui-org/react';
 const HerbalChemLogo = () => {
   return (
     <Text
+      as='a'
+      // @ts-ignore
+      href='/'
       css={{
         color: '$black',
         fontWeight: '$bold',

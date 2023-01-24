@@ -7,7 +7,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +15,7 @@ import java.util.Map;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
-@Controller
+@RestController
 @AllArgsConstructor
 @RequestMapping(path = "/compound-file")
 public class CompoundFileController {
@@ -28,7 +27,6 @@ public class CompoundFileController {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    @ResponseBody
     public ResponseEntity<EntityModel<Map<String, String>>> uploadFile(
             @RequestParam(name = "structure2DFile") MultipartFile structure2DFile,
             @RequestParam(name = "structure3DFile") MultipartFile structure3DFile
@@ -47,7 +45,6 @@ public class CompoundFileController {
         return ResponseEntity.ok(uploadFileResponseEntityModel);
     }
 
-    @ResponseBody
     @CrossOrigin(origins = "http://localhost:3000/")
     @GetMapping(path = "/structure2d/{structure2d}", produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<Resource> structure2DFile(@PathVariable(name = "structure2d") String structure2DFilename) {
@@ -56,7 +53,6 @@ public class CompoundFileController {
         return ResponseEntity.ok(structure2DResource);
     }
 
-    @ResponseBody
     @CrossOrigin(origins = "http://localhost:3000/")
     @GetMapping(path = "/structure3d/{structure3d}", produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<Resource> structure3DFile(@PathVariable(name = "structure3d") String structure3DFilename) {

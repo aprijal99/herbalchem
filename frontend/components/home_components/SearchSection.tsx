@@ -32,8 +32,10 @@ const SearchSection = () => {
         Database of Compounds from Indonesia Herbal Plants
       </Text>
       <Input
-        clearable
+        aria-label='Input file for searching compounds'
+        clearable={true}
         size='xl'
+        animated={false}
         shadow={false}
         contentRight={
           <SearchIcon fill='var(--nextui-colors-accents6)' size={16} />
@@ -53,9 +55,6 @@ const SearchSection = () => {
           'input': {
             ml: '$8 !important',
           },
-          'div': {
-            transform: 'none',
-          }
         }}
       />
     </Container>
