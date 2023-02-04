@@ -3,7 +3,6 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN apk add --no-cache libc6-compat
 RUN npm ci
-RUN npm cache clean
 
 FROM node:16.14.2-alpine AS BUILD
 WORKDIR /app
