@@ -1,0 +1,6 @@
+.next
+node_modules
+.dockerignore
+docker-compose.yaml
+next-env.d.ts
+README.md

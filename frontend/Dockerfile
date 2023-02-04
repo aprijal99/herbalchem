@@ -1,11 +1,8 @@
 FROM node:16.14.2-alpine
-
-WORKDIR /application
+WORKDIR /app
 COPY . .
-
-RUN npm install
-RUN npm run build
-
-CMD ["npm", "run", "start"]
+RUN npm install --prefer-offline --no-audit
 
 EXPOSE 3000
+
+CMD ["npm", "run", "start"]
