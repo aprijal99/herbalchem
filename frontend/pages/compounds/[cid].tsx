@@ -137,7 +137,7 @@ const Compound: NextPage<PropsDetails> = (props) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { cid } = context.params as QParams;
-  const result = await fetch('http://localhost:8443/compound-detail/' + cid);
+  const result = await fetch(`http://${process.env.API_HOST}/compound-detail/${cid}`);
   const data: DataDetails = await result.json();
 
   return {

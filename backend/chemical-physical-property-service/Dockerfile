@@ -1,9 +1,9 @@
-FROM adoptopenjdk:11-jre-hotspot as builder
+FROM eclipse-temurin:11-jre-alpine as builder
 WORKDIR extracted
 COPY ./target/*.jar app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
 
-FROM adoptopenjdk:11-jre-hotspot
+FROM eclipse-temurin:11-jre-alpine
 WORKDIR application
 COPY --from=builder extracted/dependencies/ ./
 COPY --from=builder extracted/spring-boot-loader/ ./

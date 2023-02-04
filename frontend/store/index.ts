@@ -3,7 +3,7 @@ import {createWrapper} from 'next-redux-wrapper';
 import {Action} from 'redux';
 import userReducer from './slices/user';
 
-const makeStore = () => configureStore({
+const makeStore = () => configureStore({ // https://www.youtube.com/watch?v=pstQ7xyg8p8
   reducer: {
     user: userReducer,
   },

@@ -36,7 +36,7 @@ const validateToken = (store: AppStore) => async (context: GetServerSidePropsCon
 
   const formBody = Object.keys(body).map((key: string) => encodeURIComponent(key) + '=' + encodeURIComponent(body[key])).join('&');
 
-  const res = await fetch('http://localhost:8921/oauth2/introspect', {
+  const res = await fetch(`http://${process.env.API_HOST}/authorization-server/oauth2/introspect`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',

@@ -169,6 +169,26 @@ services:
           memory: 128M
           cpus: '0.25'
 
+  authorization-server:
+    build:
+      context: authorization-server
+      dockerfile: Dockerfile
+    image: herbalchem/authorization-server:1.0
+    container_name: herbalchem_authorization-server
+    restart: always
+    ports:
+      - "8921:8921"
+    networks:
+      - herbalchem_microservices
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
+
   compound-form-service:
     build:
       context: compound-form-service

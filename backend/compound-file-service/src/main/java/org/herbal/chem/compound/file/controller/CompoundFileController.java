@@ -5,6 +5,7 @@ import org.herbal.chem.compound.file.service.Structure2DFileService;
 import org.herbal.chem.compound.file.service.Structure3DFileService;
 import org.springframework.core.io.Resource;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

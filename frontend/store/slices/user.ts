@@ -2,7 +2,7 @@ import {createAction, createSlice} from '@reduxjs/toolkit';
 import {HYDRATE} from 'next-redux-wrapper';
 import {AppState} from '../index';
 
-const APP_HYDRATE = createAction<AppState>(HYDRATE);
+const APP_HYDRATE = createAction<AppState>(HYDRATE); // https://github.com/kirill-konshin/next-redux-wrapper/issues/509#issuecomment-1337466340
 
 export const UserSlice = createSlice({
   name: 'user',

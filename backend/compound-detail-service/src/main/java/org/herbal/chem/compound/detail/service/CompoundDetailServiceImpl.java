@@ -18,7 +18,7 @@ public class CompoundDetailServiceImpl implements CompoundDetailService{
     private final String COMPOUND_SERVICE_URL = "http://compound-service/compounds/";
     private final String STRUCTURE_SERVICE_URL = "http://structure-service/structures/";
     private final String NAME_IDENTIFIER_SERVICE_URL = "http://name-identifier-service/names-identifiers/";
-    private final String CHEMICAL_PHYSICAL_PROPERTY_URL = "http://chemical-physical-property-service/chemical-physical-properties/";
+    private final String CHEMICAL_PHYSICAL_PROPERTY_URL = "http://chem-phys-prop-service/chemical-physical-properties/";
     private final String ORGANISM_SERVICE_URL = "http://organism-service/organisms/";
 
     public CompoundDetailServiceImpl(RestTemplate restTemplate, HttpClientErrorExceptionHandler httpClientErrorExceptionHandler) {
