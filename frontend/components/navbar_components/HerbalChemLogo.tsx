@@ -1,22 +1,33 @@
-import { Text } from '@nextui-org/react';
+import {Link, styled, Text} from '@nextui-org/react';
+
+const CustomImg = styled('img', {
+  h: '45px',
+  mr: '10px',
+  '@media (max-width: 770px)': {
+    display: 'none',
+  },
+});
 
 const HerbalChemLogo = () => {
   return (
-    <Text
-      as='a'
-      // @ts-ignore
-      href='/'
-      css={{
-        color: '$black',
-        fontWeight: '$bold',
-        fontSize: '$3xl',
-        '&:hover': {
-          color: '$black'
-        }
-      }}
-    >
-      HerbalChem
-    </Text>
+    <Link href='/'>
+      <CustomImg
+        src='/images/herbalchem_logo.png'
+        alt='HerbalChem Logo'
+      />
+      <Text
+        css={{
+          color: '$black',
+          fontWeight: '$bold',
+          fontSize: '$3xl',
+          '&:hover': {
+            color: '$black'
+          }
+        }}
+      >
+        HerbalChem
+      </Text>
+    </Link>
   );
 }
 

@@ -36,7 +36,7 @@ const OrganismSection = ({ family, species, subspecies, reference }: OrganismPro
             <Table.Cell>{subspecies == null ? '-' : subspecies}</Table.Cell>
             <Table.Cell>
               <Link target='_blank' href={reference} css={{ color: 'black' }}>
-                {reference.substring(19)}
+                {reference.split("org/")[1]}
               </Link>
             </Table.Cell>
           </Table.Row>

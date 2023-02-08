@@ -4,16 +4,12 @@ import {AppStore} from '../store';
 import {setUserData} from '../store/slices/user';
 
 const validateToken = (store: AppStore) => async (context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>) => {
-  console.log('GET TOKEN');
+  console.log('Validate Token');
 
   const token: string = context.req.cookies['token'] as string;
   let isAuth = false;
 
-  if (token !== undefined) {
-    console.log('Token: ' + token);
-  } else {
-    console.log('Token is empty');
-
+  if (token === undefined || token === null) { // return if token is undefined or null
     store.dispatch(setUserData({
       isAuth,
       username: '',
@@ -25,8 +21,6 @@ const validateToken = (store: AppStore) => async (context: GetServerSidePropsCon
       },
     }
   }
-
-  console.log('VALIDATE TOKEN');
 
   const body: { [n: string]: string } = {
     token,
@@ -59,25 +53,17 @@ const validateToken = (store: AppStore) => async (context: GetServerSidePropsCon
   } = await res.json();
 
   if (data.active) {
-    console.log('Token is active');
-    console.log(data);
-
     isAuth = true;
     store.dispatch(setUserData({
       isAuth,
       username: data.sub,
     }));
   } else {
-    console.log('Token is inactive');
-    console.log(data);
-
     store.dispatch(setUserData({
       isAuth,
       username: '',
     }));
   }
-
-  console.log('Authenticated: ' + isAuth as string);
 
   return {
     props: {

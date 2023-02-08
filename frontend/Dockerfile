@@ -1,3 +1,5 @@
+#Source: https://github.com/vercel/next.js/blob/canary/examples/with-docker/Dockerfile
+
 FROM node:16.14.2-alpine AS BASE
 RUN apk add --no-cache libc6-compat
 WORKDIR /app

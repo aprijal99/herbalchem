@@ -1,5 +1,5 @@
 import {Container, Grid, Text} from '@nextui-org/react';
-import {NextPage} from 'next';
+import {GetServerSideProps, NextPage} from 'next';
 import {wrapper} from '../store';
 import LoginRegister from '../components/submit_components/LoginRegister';
 import FileUploadInput from '../components/submit_components/FileUploadInput';
@@ -35,6 +35,6 @@ const Submit: NextPage<Props> = ({ isAuth }) => {
   );
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(validateToken);
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(validateToken);
 
 export default Submit;

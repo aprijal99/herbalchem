@@ -7,6 +7,9 @@ import SummarySection from '../../components/compound_components/SummarySection'
 import NameIdentifierSection from '../../components/compound_components/NameIdentifierSection';
 import PropertySection from '../../components/compound_components/PropertySection';
 import OrganismSection from '../../components/compound_components/OrganismSection';
+import {wrapper} from '../../store';
+import validateToken from '../../functions/validateToken';
+import {composeServerSideProps} from 'next-composition';
 
 interface QParams extends ParsedUrlQuery {
   cid: string,
@@ -135,7 +138,9 @@ const Compound: NextPage<PropsDetails> = (props) => {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+const withToken: GetServerSideProps = wrapper.getServerSideProps(validateToken);
+
+const withCompoundDetail: GetServerSideProps = async (context) => {
   const { cid } = context.params as QParams;
   const result = await fetch(`http://${process.env.API_HOST}/compound-detail/${cid}`);
   const data: DataDetails = await result.json();
@@ -146,5 +151,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
   };
 }
+
+export const getServerSideProps = composeServerSideProps({
+  use: [withToken, withCompoundDetail],
+})
 
 export default Compound;

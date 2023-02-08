@@ -34,9 +34,11 @@ const AppNavbar = () => {
       }}
     >
       <Navbar.Toggle
-        showIn='xs'
         css={{
           fb: '33.33333%',
+          '@media (min-width: 770px)': {
+            display: 'none',
+          },
         }}
       />
 
@@ -48,7 +50,13 @@ const AppNavbar = () => {
         <HerbalChemLogo />
       </Navbar.Brand>
 
-      <Navbar.Content hideIn='xs'>
+      <Navbar.Content
+        css={{
+          '@media (max-width: 770px)': {
+            display: 'none',
+          },
+        }}
+      >
         <Navbar.Item>
           <SearchInput />
         </Navbar.Item>
@@ -63,33 +71,39 @@ const AppNavbar = () => {
         }}
       >
         <Navbar.Link
-          hideIn='xs'
           href={collapseItems.download}
           css={{
             '&:hover': {
               color: 'var(--nextui-colors-successLightContrast)',
+            },
+            '@media (max-width: 770px)': {
+              display: 'none',
             },
           }}
         >
           Download
         </Navbar.Link>
         <Navbar.Link
-          hideIn='xs'
           href={collapseItems.api}
           css={{
             '&:hover': {
               color: 'var(--nextui-colors-successLightContrast)',
+            },
+            '@media (max-width: 770px)': {
+              display: 'none',
             },
           }}
         >
           API
         </Navbar.Link>
         <Navbar.Link
-          hideIn='xs'
           href={collapseItems.submit}
           css={{
             '&:hover': {
               color: 'var(--nextui-colors-successLightContrast)',
+            },
+            '@media (max-width: 770px)': {
+              display: 'none',
             },
           }}
         >
@@ -113,7 +127,6 @@ const AppNavbar = () => {
       </Navbar.Content>
 
       <Navbar.Collapse
-        showIn='xs'
         disableAnimation
         css={{
           'ul': {
@@ -122,6 +135,9 @@ const AppNavbar = () => {
             '@xsMax': {
               px: 'var(--nextui-space-6)',
             },
+          },
+          '@media (min-width: 770px)': {
+            display: 'none',
           },
         }}
       >

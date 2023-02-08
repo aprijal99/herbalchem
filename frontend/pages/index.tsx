@@ -1,3 +1,4 @@
+import {GetServerSideProps} from 'next';
 import AboutSection from '../components/home_components/AboutSection';
 import StatisticSection from '../components/home_components/StatisticSection';
 import SearchSection from '../components/home_components/SearchSection';
@@ -14,6 +15,6 @@ const Home = () => {
   );
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(validateToken);
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(validateToken);
 
 export default Home;
