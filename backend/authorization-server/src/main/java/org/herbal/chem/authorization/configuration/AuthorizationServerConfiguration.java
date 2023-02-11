@@ -55,6 +55,10 @@ import java.util.stream.Collectors;
 public class AuthorizationServerConfiguration {
     @Value("${authorization.server.issuer}")
     private String issuer;
+    @Value("${authorization.server.redirect.uri}")
+    private String redirectUri;
+    @Value("${authorization.server.redirect.uri.oidc}")
+    private String redirectUriOidc;
 
     @Bean @Order(1)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -115,8 +119,8 @@ public class AuthorizationServerConfiguration {
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .redirectUri("http://127.0.0.1:3000/login/oauth2/code/messaging-client-oidc")
-                .redirectUri("http://127.0.0.1:3000/login-success")
+                .redirectUri(redirectUriOidc)
+                .redirectUri(redirectUri)
                 .scope(OidcScopes.OPENID)
                 .scope(OidcScopes.PROFILE)
                 .scope("compound-data-posting")

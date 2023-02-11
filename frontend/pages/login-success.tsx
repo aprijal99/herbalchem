@@ -31,12 +31,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     client_id: 'nextJsClient',
     client_secret: '@pr1j@l9h1y@s',
     code: code,
-    redirect_uri: 'http://127.0.0.1:3000/login-success',
+    redirect_uri: 'http://herbalchem.site/login-success',
   }
 
   const formBody = Object.keys(body).map((key: string) => encodeURIComponent(key) + '=' + encodeURIComponent(body[key])).join('&');
 
-  const res = await fetch(`http://${process.env.API_HOST}/authorization-server/oauth2/token`, {
+  const res = await fetch(`http://${process.env.AUTH_SERVER_SERVICE}/authorization-server/oauth2/token`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',

@@ -1,6 +1,7 @@
 import {GetServerSideProps, NextPage} from 'next';
 import {ParsedUrlQuery} from 'querystring';
 import {Container} from '@nextui-org/react';
+import {composeServerSideProps} from 'next-composition';
 import StructureSection from '../../components/compound_components/StructureSection';
 import {CompoundTitle} from '../../components/compound_components/util/TitleUtil';
 import SummarySection from '../../components/compound_components/SummarySection';
@@ -9,7 +10,6 @@ import PropertySection from '../../components/compound_components/PropertySectio
 import OrganismSection from '../../components/compound_components/OrganismSection';
 import {wrapper} from '../../store';
 import validateToken from '../../functions/validateToken';
-import {composeServerSideProps} from 'next-composition';
 
 interface QParams extends ParsedUrlQuery {
   cid: string,
@@ -142,7 +142,7 @@ const withToken: GetServerSideProps = wrapper.getServerSideProps(validateToken);
 
 const withCompoundDetail: GetServerSideProps = async (context) => {
   const { cid } = context.params as QParams;
-  const result = await fetch(`http://${process.env.API_HOST}/compound-detail/${cid}`);
+  const result = await fetch(`http://${process.env.GATEWAY_SERVICE}/compound-detail/${cid}`);
   const data: DataDetails = await result.json();
 
   return {

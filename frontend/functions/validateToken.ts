@@ -4,8 +4,6 @@ import {AppStore} from '../store';
 import {setUserData} from '../store/slices/user';
 
 const validateToken = (store: AppStore) => async (context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>) => {
-  console.log('Validate Token');
-
   const token: string = context.req.cookies['token'] as string;
   let isAuth = false;
 
@@ -30,7 +28,7 @@ const validateToken = (store: AppStore) => async (context: GetServerSidePropsCon
 
   const formBody = Object.keys(body).map((key: string) => encodeURIComponent(key) + '=' + encodeURIComponent(body[key])).join('&');
 
-  const res = await fetch(`http://${process.env.API_HOST}/authorization-server/oauth2/introspect`, {
+  const res = await fetch(`http://${process.env.AUTH_SERVER_SERVICE}/authorization-server/oauth2/introspect`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',

@@ -26,7 +26,7 @@ const LoginRegister = () => {
               <Button
                 color='success'
                 as='a'
-                href={`http://${process.env.API_HOST}/authorization-server/oauth2/authorize?response_type=code&client_id=nextJsClient&redirect_uri=http://127.0.0.1:3000/login-success&scope=openid profile compound-data-posting compound-file-upload`}
+                href={`http://${process.env.SITE_NAME}/authorization-server/oauth2/authorize?response_type=code&client_id=nextJsClient&redirect_uri=http://${process.env.SITE_NAME}/login-success&scope=openid profile compound-data-posting compound-file-upload`}
                 target='_blank'
                 css={{
                   mb: '$md',
