@@ -16,6 +16,7 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           {CssBaseline.flush()}
+          <link rel='icon' href='/favicon.ico' />
 
           <script src='/js/ChemDoodleWeb.js'></script>
         </Head>

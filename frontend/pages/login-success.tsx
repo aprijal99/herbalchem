@@ -1,4 +1,4 @@
-import {Container} from '@nextui-org/react';
+import {Container, Text} from '@nextui-org/react';
 import {GetServerSideProps} from 'next';
 import {ParsedUrlQuery} from 'querystring';
 import cookie from 'cookie';
@@ -14,7 +14,7 @@ const LoginSuccess = () => {
         },
       }}
     >
-      Login Success
+      <Text h1>Login Success</Text>
     </Container>
   );
 }
@@ -63,10 +63,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }))
 
   return {
-    redirect: {
-      statusCode: 302,
-      destination: '/',
+    props: {
+      data: {},
     },
+    // redirect: {
+    //   statusCode: 302,
+    //   destination: '/',
+    // },
   };
 }
 
