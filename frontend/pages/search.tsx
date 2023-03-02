@@ -96,7 +96,7 @@ const withToken: GetServerSideProps = wrapper.getServerSideProps(validateToken);
 const withSearchResult: GetServerSideProps = async (context) => {
   const { query } = context.query;
 
-  const res = await fetch(`https://${process.env.NEXT_PUBLIC_ELASTICSEARCH_SERVICE}/compound_summary/_search`, {
+  const res = await fetch(`http://${process.env.NEXT_PUBLIC_ELASTICSEARCH_SERVICE}/compound_summary/_search`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
