@@ -1,0 +1,5 @@
+FROM phpmyadmin:latest as builder
+
+FROM phpmyadmin:latest
+RUN mkdir "/var/www/html/phpmyadmin"
+COPY --from=builder /var/www/html/ /var/www/html/phpmyadmin/

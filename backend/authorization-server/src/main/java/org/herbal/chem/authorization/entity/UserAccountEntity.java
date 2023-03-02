@@ -8,29 +8,24 @@ import javax.persistence.*;
 @Builder
 @Table(name = "user_account")
 public class UserAccountEntity {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, columnDefinition = "INT UNSIGNED")
-    private Integer id;
-
+    @Id
+    @Column(name = "id", nullable = false)
+    private String id;
     @Column(name = "name", nullable = false, length = 100)
     private String name;
-
     @Column(name = "username", nullable = false, length = 50)
     private String username;
-
     @Column(name = "email", nullable = false, length = 50)
     private String email;
-
     @Column(name = "password", nullable = false, length = 200)
     private String password;
-
     @Column(name = "role", nullable = false, length = 50)
     private String role;
 
     public UserAccountEntity() {
     }
 
-    public UserAccountEntity(Integer id, String name, String username, String email, String password, String role) {
+    public UserAccountEntity(String id, String name, String username, String email, String password, String role) {
         this.id = id;
         this.name = name;
         this.username = username;
@@ -39,11 +34,11 @@ public class UserAccountEntity {
         this.role = role;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

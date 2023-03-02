@@ -19,7 +19,7 @@ public class CompoundSummaryEntity {
     private String canonicalSmiles;
     private String inchlKey;
     private String inchl;
-    private LocalDateTime createdAt;
+    private String createdAt;
     private String structure2DUrl;
 
     public CompoundSummaryEntity() {
@@ -34,7 +34,7 @@ public class CompoundSummaryEntity {
                                  String canonicalSmiles,
                                  String inchlKey,
                                  String inchl,
-                                 LocalDateTime createdAt,
+                                 String createdAt,
                                  String structure2DUrl) {
         this.herbalChemCid = herbalChemCid;
         this.compoundName = compoundName;
@@ -121,11 +121,11 @@ public class CompoundSummaryEntity {
         this.inchl = inchl;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 

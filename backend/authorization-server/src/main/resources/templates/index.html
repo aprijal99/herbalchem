@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home - HerbalChem Account</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="fs-1 fw-semibold mt-4 mb-3">Welcome, <span th:text="${user.name.split(' ', 2)[0]}"></span></div>
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${flashCurrPwdError}">
+      <div th:text="${flashCurrPwdError}"></div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${flashCurrPwdSuccess}">
+      <div th:text="${flashCurrPwdSuccess}"></div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <form action="#" method="post" th:action="@{/update}" th:object="${user}">
+      <div class="mb-3">
+        <label for="name" class="form-label">Full Name</label>
+        <input type="text" id="name" class="form-control" th:field="*{name}" th:value="*{name}" th:disabled="${page} == 'view'">
+      </div>
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" id="username" class="form-control" th:field="*{username}" th:value="*{username}" th:disabled="${page} == 'view'">
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" class="form-control" th:field="*{email}" th:value="*{email}" th:disabled="${page} == 'view'">
+      </div>
+      <div class="mb-3" th:if="${page} == 'edit'">
+        <label for="current_password" class="form-label">Current Password</label>
+        <input type="password" id="current_password" class="form-control" th:field="*{currentPassword}">
+        <div id="passwordHelp" class="form-text">Empty this field to not change the password</div>
+      </div>
+      <div class="mb-3" th:if="${page} == 'edit'">
+        <label for="password" class="form-label">New Password</label>
+        <input type="password" id="password" class="form-control" th:field="*{password}">
+        <div id="passwordHelp" class="form-text">Empty this field to not change the password</div>
+      </div>
+      <button id="btn-edit" type="button" class="btn btn-success" th:if="${page} == 'view'" onclick="location.href = '?page=edit'">Edit</button>
+      <button type="submit" class="btn btn-success" th:if="${page} == 'edit'">Update</button>
+      <button id="btn-back" type="button" class="btn btn-danger" th:if="${page} == 'edit'" onclick="location.href = './'">Back</button>
+    </form>
+  </div>
+
+  <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -81,9 +82,15 @@ public class AuthorizationServerConfiguration {
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/signup").permitAll()
+                .antMatchers(HttpMethod.POST, "/registration").permitAll()
+                .antMatchers(HttpMethod.GET, "/css/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/js/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin(Customizer.withDefaults());
+                .formLogin()
+                .loginPage("/login")
+                .permitAll();
 
         return http.build();
     }

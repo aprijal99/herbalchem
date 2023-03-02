@@ -31,7 +31,6 @@ public class CompoundFormServiceImpl implements CompoundFormService {
     private String compoundServiceReplyTopic;
 
     private final ReplyingKafkaTemplate<String, byte[], KafkaReply> replyingKafkaTemplate;
-
     private final StreamBridge streamBridge;
 
     public CompoundFormServiceImpl(ReplyingKafkaTemplate<String, byte[], KafkaReply> replyingKafkaTemplate, StreamBridge streamBridge) {

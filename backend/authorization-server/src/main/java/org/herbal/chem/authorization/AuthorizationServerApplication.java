@@ -20,11 +20,11 @@ public class AuthorizationServerApplication {
         return args -> {
             userAccountService.saveUserAccount(
                     UserAccountEntity.builder()
-                            .name("Aprijal Ghiyas Setiawan")
-                            .username("aprijal_99")
-                            .email("aprijalghiyas@gmail.com")
-                            .password("subang12345")
-                            .role("USER")
+                            .name("Admin")
+                            .username("admin")
+                            .email("admin@herbalchem.site")
+                            .password("password")
+                            .role("ADMIN")
                             .build()
             );
         };
