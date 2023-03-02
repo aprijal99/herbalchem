@@ -142,7 +142,7 @@ const withToken: GetServerSideProps = wrapper.getServerSideProps(validateToken);
 
 const withCompoundDetail: GetServerSideProps = async (context) => {
   const { cid } = context.params as QParams;
-  const result = await fetch(`https://${process.env.GATEWAY_SERVICE}/compound-detail/${cid}`);
+  const result = await fetch(`https://${process.env.NEXT_PUBLIC_GATEWAY_SERVICE}/gateway/compound-detail/${cid}`);
   const data: DataDetails = await result.json();
 
   return {

@@ -8,7 +8,7 @@ const UnsignedUserMenu = () => {
     >
       <Dropdown.Item key='login'>
         <Link
-          href={`https://${process.env.SITE_NAME}/authorization-server/oauth2/authorize?response_type=code&client_id=nextJsClient&redirect_uri=https://${process.env.SITE_NAME}/login-success&scope=openid profile compound-data-posting compound-file-upload`}
+          href={`https://${process.env.NEXT_PUBLIC_SITE_NAME}/authorization-server/oauth2/authorize?response_type=code&client_id=nextJsClient&redirect_uri=https://${process.env.NEXT_PUBLIC_SITE_NAME}/login-success&scope=openid profile compound-data-posting compound-file-upload`}
           color='inherit'
           target='_blank'
           css={{
@@ -21,7 +21,7 @@ const UnsignedUserMenu = () => {
       </Dropdown.Item>
       <Dropdown.Item key='register'>
         <Link
-          href={`https://${process.env.SITE_NAME}/authorization-server/signup`}
+          href={`https://${process.env.NEXT_PUBLIC_SITE_NAME}/authorization-server/signup`}
           color='inherit'
           target='_blank'
         >

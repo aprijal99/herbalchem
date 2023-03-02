@@ -36,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const formBody = Object.keys(body).map((key: string) => encodeURIComponent(key) + '=' + encodeURIComponent(body[key])).join('&');
 
-  const res = await fetch(`https://${process.env.AUTH_SERVER_SERVICE}/authorization-server/oauth2/token`, {
+  const res = await fetch(`https://${process.env.NEXT_PUBLIC_AUTH_SERVER_SERVICE}/authorization-server/oauth2/token`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',

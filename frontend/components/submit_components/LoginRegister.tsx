@@ -26,7 +26,7 @@ const LoginRegister = () => {
               <Button
                 color='success'
                 as='a'
-                href={`https://${process.env.SITE_NAME}/authorization-server/oauth2/authorize?response_type=code&client_id=nextJsClient&redirect_uri=https://${process.env.SITE_NAME}/login-success&scope=openid profile compound-data-posting compound-file-upload`}
+                href={`https://${process.env.NEXT_PUBLIC_SITE_NAME}/authorization-server/oauth2/authorize?response_type=code&client_id=nextJsClient&redirect_uri=https://${process.env.NEXT_PUBLIC_SITE_NAME}/login-success&scope=openid profile compound-data-posting compound-file-upload`}
                 target='_blank'
                 css={{
                   mb: '$md',
@@ -39,7 +39,7 @@ const LoginRegister = () => {
               <Button
                 color='success'
                 as='a'
-                href={`https://${process.env.SITE_NAME}/authorization-server/signup`}
+                href={`https://${process.env.NEXT_PUBLIC_SITE_NAME}/authorization-server/signup`}
                 target='_black'
                 css={{
                   fs: '$md',
